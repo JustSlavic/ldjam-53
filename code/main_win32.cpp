@@ -126,6 +126,8 @@ void process_pending_messages(input_devices *inp)
                 {
                     case VK_ESCAPE: process_button_state(&inp->keyboard_device[keyboard::esc], is_down);
                         break;
+                    case VK_SPACE: process_button_state(&inp->keyboard_device[keyboard::space], is_down);
+                        break;
                     case 'W': process_button_state(&inp->keyboard_device[keyboard::w], is_down);
                         break;
                     case 'A': process_button_state(&inp->keyboard_device[keyboard::a], is_down);
@@ -341,7 +343,7 @@ int32 WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR command_line, i
 
         memory::reset_allocator(&context.temporary_allocator);
 
-#if DEBUG
+#if DEBUG && 0
         // @todo: this things should be abstract so no code from the game should appear here
         // now the names of the functions appear here.
 #define DEBUG_PRINT_COUNTER(COUNTER) \
