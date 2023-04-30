@@ -231,16 +231,16 @@ int32 WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR command_line, i
 
     game_dll game = load_game_dll(game_dll_buffer, temp_dll_buffer, lock_tmp_buffer);
 
-    if (game.initialize_memory)
+    // if (game.initialize_memory)
     {
-        game.initialize_memory(&context, game_memory);
+        initialize_memory(&context, game_memory);
     }
-    else
-    {
-        MessageBeep(MB_ICONERROR);
-        MessageBoxA(0, "System error! Could not load Game DLL.", "Error", MB_OK | MB_ICONERROR | MB_TOPMOST);
-        return 1;
-    }
+    // else
+    // {
+    //     MessageBeep(MB_ICONERROR);
+    //     MessageBoxA(0, "System error! Could not load Game DLL.", "Error", MB_OK | MB_ICONERROR | MB_TOPMOST);
+    //     return 1;
+    // }
 
     auto view = math::matrix4::identity();
     float32 aspect_ratio = 16.0f / 9.0f;
@@ -259,12 +259,12 @@ int32 WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR command_line, i
         reset_transitions(&input.keyboard_device);
         process_pending_messages(&input);
 
-        uint64 dll_file_time = win32::get_file_time(game_dll_buffer);
-        if (dll_file_time > game.dll.timestamp)
-        {
-            unload_game_dll(&game);
-            game = load_game_dll(game_dll_buffer, temp_dll_buffer, lock_tmp_buffer);
-        }
+        // uint64 dll_file_time = win32::get_file_time(game_dll_buffer);
+        // if (dll_file_time > game.dll.timestamp)
+        // {
+        //     unload_game_dll(&game);
+        //     game = load_game_dll(game_dll_buffer, temp_dll_buffer, lock_tmp_buffer);
+        // }
 
         if (viewport_changed)
         {
@@ -275,10 +275,10 @@ int32 WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR command_line, i
 
         gfx::clear();
 
-        if (game.update_and_render)
+        // if (game.update_and_render)
         {
-#if 0
-            game.update_and_render(&context, game_memory, &input, last_frame_dt);
+#if 1
+            update_and_render(&context, game_memory, &input, last_frame_dt);
 #else
 #define FIXED_DT 0.3333f
             game.update_and_render(&context, game_memory, &input, FIXED_DT);
@@ -383,3 +383,4 @@ int32 WinMain(HINSTANCE instance, HINSTANCE prev_instance, LPSTR command_line, i
 #include <memory/allocator.cpp>
 #include <string_id.cpp>
 #include <rs/resource_system.cpp>
+#include <game.cpp>

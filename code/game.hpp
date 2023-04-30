@@ -59,6 +59,7 @@ struct entity
 
     bool32 collidable;
     bool32 collided;
+    bool32 deleted;
 };
 
 namespace game {
@@ -85,8 +86,21 @@ struct game_state
     entity *postbox;
     entity *ground;
 
+    uint32 carried_packages;
+    uint32 score;
+
+    float32 blink_time;
+    float32 blink_freq;
+    bool32  draw_scanner;
+    bool32  jumps_available;
+
     rs::resource_token rectangle_mesh;
     rs::resource_token rectangle_shader;
+
+    rs::resource_token five_mesh;
+    rs::resource_token zero_mesh;
+    rs::resource_token ten_mesh;
+    rs::resource_token fifty_mesh;
 
     entity *entities;
     usize entities_capacity;
